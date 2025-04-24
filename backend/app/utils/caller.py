@@ -1,32 +1,47 @@
 from typing import Optional
-import fitz  # PyMuPDF for PDFs
-import docx  # python-docx for DOCX files
+from pdf import parse_pdf
+from docs import parse_docx
+from ocr import ocr_pdf
 
-def parse_pdf(file_path: str) -> str:
+
+from typing import Literal
+import fitz  # PyMuPDF
+
+def detect_pdf_type(file_path: str, text_threshold: int = 100) -> Literal['text', 'image', 'mixed']:
     """
-    Extract text from a text-based PDF using PyMuPDF.
+    Detect whether a PDF is text-based, image-based, or mixed.
+    
+    :param file_path: Path to the PDF file.
+    :param text_threshold: Minimum number of characters per page to consider it text-based.
+    :return: 'text', 'image', or 'mixed'
     """
-    text = []
     doc = fitz.open(file_path)
+    total_pages = doc.page_count
+    text_pages = 0
+    image_pages = 0
+    
     for page in doc:
-        text.append(page.get_text())
+        text = page.get_text().strip()
+        if len(text) >= text_threshold:
+            text_pages += 1
+        else:
+            # Check if there are images on the page
+            images = page.get_images(full=True)
+            if images:
+                image_pages += 1
+            else:
+                # Neither text nor image, consider as text page with low content
+                text_pages += 1
+    
     doc.close()
-    return "\n".join(text)
+    
+    if text_pages == total_pages:
+        return 'text'
+    if image_pages == total_pages:
+        return 'image'
+    return 'mixed'
 
-def parse_docx(file_path: str) -> str:
-    """
-    Extract text from a DOCX file using python-docx.
-    """
-    doc = docx.Document(file_path)
-    text = [para.text for para in doc.paragraphs]
-    return "\n".join(text)
 
-def parse_txt(file_path: str, encoding: str = 'utf-8') -> str:
-    """
-    Read text from a plain TXT file.
-    """
-    with open(file_path, 'r', encoding=encoding) as f:
-        return f.read()
 
 def parse_document(file_path: str, file_type: Optional[str] = None) -> str:
     """
@@ -38,20 +53,16 @@ def parse_document(file_path: str, file_type: Optional[str] = None) -> str:
         file_type = file_path.split('.')[-1].lower()
 
     if file_type == 'pdf':
-        return parse_pdf(file_path)
+        pdf_type = detect_pdf_type(file_path)
+        if pdf_type == 'text':
+            raw_text = parse_pdf(file_path)
+        elif pdf_type == 'image':
+            raw_text = ocr_pdf(file_path)
+        # return parse_pdf(file_path)
     elif file_type == 'docx':
         return parse_docx(file_path)
-    elif file_type == 'txt':
-        return parse_txt(file_path)
     else:
         raise ValueError(f"Unsupported file type: {file_type}")
 
-# Example usage
-if __name__ == "__main__":
-    for path in ["sample.pdf", "sample.docx", "sample.txt"]:
-        try:
-            content = parse_document(path)
-            print(f"Extracted content from {path}:\n{content[:200]}...\n")
-        except Exception as e:
-            print(f"Failed to parse {path}: {e}")
+
 
