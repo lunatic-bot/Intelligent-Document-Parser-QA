@@ -1,5 +1,6 @@
 from typing import Optional
-from pdf import parse_pdf
+# from backend.app.utils.pdf_parse import parse_pdf
+from pdf_parse import parse_pdf
 from docs import parse_docx
 from ocr import ocr_pdf
 
@@ -58,7 +59,8 @@ def parse_document(file_path: str, file_type: Optional[str] = None) -> str:
             raw_text = parse_pdf(file_path)
         elif pdf_type == 'image':
             raw_text = ocr_pdf(file_path)
-        # return parse_pdf(file_path)
+
+        return parse_pdf(file_path)
     elif file_type == 'docx':
         return parse_docx(file_path)
     else:
@@ -66,3 +68,21 @@ def parse_document(file_path: str, file_type: Optional[str] = None) -> str:
 
 
 
+# def pdf_text_extraction(pdf_file_path):
+
+#     file_type = detect_pdf_type(file_path=pdf_file_path)
+
+#     parsing_result = parse_document(file_path=pdf_file_path, file_type=file_type)
+
+#     print("Parsing result : ", parsing_result)
+
+
+pdf_file_path = r"C:\Users\atalb\Documents\Coding\FastAPI\IDP\backend\app\Data\100KB_PDF.pdf"
+
+
+pdf_file_path = r"C:\Users\atalb\Documents\Coding\FastAPI\IDP\backend\app\Data\image-based-pdf-sample.pdf"
+
+if __name__ == "__main__":
+    # pdf_text_extraction(pdf_file_path=pdf_file_path)
+    text = parse_document(pdf_file_path, file_type="pdf")
+    print(text)

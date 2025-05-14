@@ -1,7 +1,7 @@
  # parse_pdf(file_path) -> str
 import fitz
 
-async def parse_pdf(file_path: str) -> str:
+def parse_pdf(file_path: str) -> str:
     """
     Extract text from a text-based PDF using PyMuPDF.
     :param file_path: Path to the PDF file.
