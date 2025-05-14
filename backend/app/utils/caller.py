@@ -68,18 +68,8 @@ def parse_document(file_path: str, file_type: Optional[str] = None) -> str:
 
 
 
-# def pdf_text_extraction(pdf_file_path):
-
-#     file_type = detect_pdf_type(file_path=pdf_file_path)
-
-#     parsing_result = parse_document(file_path=pdf_file_path, file_type=file_type)
-
-#     print("Parsing result : ", parsing_result)
-
 
 pdf_file_path = r"C:\Users\atalb\Documents\Coding\FastAPI\IDP\backend\app\Data\100KB_PDF.pdf"
-
-
 pdf_file_path = r"C:\Users\atalb\Documents\Coding\FastAPI\IDP\backend\app\Data\image-based-pdf-sample.pdf"
 
 if __name__ == "__main__":
