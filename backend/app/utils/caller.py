@@ -1,5 +1,4 @@
 from typing import Optional
-# from backend.app.utils.pdf_parse import parse_pdf
 from pdf_parse import parse_pdf
 from docs import parse_docx
 from ocr import ocr_pdf
