@@ -69,11 +69,11 @@ def parse_document(file_path: str, file_type: Optional[str] = None) -> str:
 
 
 
-pdf_file_path = r"C:\Users\atalb\Documents\Coding\FastAPI\IDP\backend\app\Data\100KB_PDF.pdf"
-# pdf_file_path = r"C:\Users\atalb\Documents\Coding\FastAPI\IDP\backend\app\Data\image-based-pdf-sample.pdf"
-
+file_path = r"C:\Users\atalb\Documents\Coding\FastAPI\IDP\backend\app\Data\100KB_PDF.pdf"
+file_path = r"C:\Users\atalb\Documents\Coding\FastAPI\IDP\backend\app\Data\image-based-pdf-sample.pdf"
+file_path = r"C:\Users\atalb\Documents\Coding\FastAPI\IDP\backend\app\Data\example03.docx"
 
 if __name__ == "__main__":
     # pdf_text_extraction(pdf_file_path=pdf_file_path)
-    text = parse_document(pdf_file_path, file_type="pdf")
+    text = parse_document(file_path, file_type="docx")
     print(text)
