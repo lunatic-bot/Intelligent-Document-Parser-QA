@@ -1,10 +1,10 @@
 from sqlalchemy import Column,Integer,String
-from database import Base 
+from app.database import Base 
 class document(Base):
     __tablename__="documents"
     id=Column(Integer,primary_key=True)
     user_id=Column(Integer)
-    filename=Column(String)
+    file_name=Column(String)
     path=Column(String)
-    Uploaded_at=Column(String)
+    uploaded_at=Column(String)
 
