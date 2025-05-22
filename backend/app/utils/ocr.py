@@ -5,6 +5,8 @@ from pdf2image import convert_from_path
 import pytesseract
 import os
 
+pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+
 def ocr_pdf(file_path: str, dpi: int = 300, temp_folder: str = "/tmp") -> str:
     """
     Perform OCR on an image-based PDF by converting each page to an image
@@ -14,9 +16,18 @@ def ocr_pdf(file_path: str, dpi: int = 300, temp_folder: str = "/tmp") -> str:
     :param dpi: Resolution for conversion.
     :param temp_folder: Folder to store temporary images.
     :return: Extracted text from all pages.
+
     """
+
+    temp_folder = os.path.join(os.getcwd(), "temp_images")  # absolute path
+
+    # Create folder if it doesn't exist
+    if not os.path.exists(temp_folder):
+        os.makedirs(temp_folder)
+
+    poppler_path = r"C:\Users\atalb\AppData\Local\poppler-24.08.0\Library\bin"
     # Convert PDF pages to images
-    images = convert_from_path(file_path, dpi=dpi, output_folder=temp_folder, fmt='png')
+    images = convert_from_path(file_path, dpi=dpi, output_folder=temp_folder, fmt='png', poppler_path=poppler_path)
     
     # Perform OCR on each image
     text_pages: List[str] = []
