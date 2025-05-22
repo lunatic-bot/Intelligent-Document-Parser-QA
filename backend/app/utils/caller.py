@@ -54,11 +54,12 @@ def parse_document(file_path: str, file_type: Optional[str] = None) -> str:
 
     if file_type == 'pdf':
         pdf_type = detect_pdf_type(file_path)
+        print("file type and pdf type : ", file_type, pdf_type)
         if pdf_type == 'text':
             raw_text = parse_pdf(file_path)
         elif pdf_type == 'image':
             raw_text = ocr_pdf(file_path)
-
+        print(raw_text)
         return parse_pdf(file_path)
     elif file_type == 'docx':
         return parse_docx(file_path)
@@ -68,10 +69,11 @@ def parse_document(file_path: str, file_type: Optional[str] = None) -> str:
 
 
 
-pdf_file_path = r"C:\Users\atalb\Documents\Coding\FastAPI\IDP\backend\app\Data\100KB_PDF.pdf"
-pdf_file_path = r"C:\Users\atalb\Documents\Coding\FastAPI\IDP\backend\app\Data\image-based-pdf-sample.pdf"
+file_path = r"C:\Users\atalb\Documents\Coding\FastAPI\IDP\backend\app\Data\100KB_PDF.pdf"
+file_path = r"C:\Users\atalb\Documents\Coding\FastAPI\IDP\backend\app\Data\image-based-pdf-sample.pdf"
+file_path = r"C:\Users\atalb\Documents\Coding\FastAPI\IDP\backend\app\Data\example03.docx"
 
 if __name__ == "__main__":
     # pdf_text_extraction(pdf_file_path=pdf_file_path)
-    text = parse_document(pdf_file_path, file_type="pdf")
+    text = parse_document(file_path, file_type="docx")
     print(text)
