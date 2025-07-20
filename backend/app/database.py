@@ -3,8 +3,8 @@ from sqlalchemy.orm import sessionmaker, declarative_base
 from dotenv import load_dotenv
 import os
 # DATABASE_URL="postgresql+asyncpg://postgres:chotu@localhost:5432/my_db"
-# DATABASE_URL="postgresql+asyncpg://postgres:chotu@localhost:5432/my_db"
-DATABASE_URL = "postgresql+asyncpg://postgres:Spring%402024@localhost/doc_proc"
+DATABASE_URL="postgresql+asyncpg://postgres:chotu@localhost:5432/my_db"
+# DATABASE_URL = "postgresql+asyncpg://postgres:Spring%402024@localhost/doc_proc"
 
 load_dotenv()
 
@@ -18,10 +18,14 @@ Base = declarative_base()
 #         yield session
 
 
-from contextlib import asynccontextmanager
-from sqlalchemy.ext.asyncio import AsyncSession
+# from contextlib import asynccontextmanager
+# from sqlalchemy.ext.asyncio import AsyncSession
 
-@asynccontextmanager
-async def get_db():
+# @asynccontextmanager
+# async def get_db():
+#     async with SessionLocal() as session:
+#         yield session
+from typing import AsyncGenerator
+async def get_db() -> AsyncGenerator[AsyncSession, None]:
     async with SessionLocal() as session:
         yield session
