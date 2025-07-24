@@ -1,9 +1,8 @@
 from fastapi import FastAPI 
 from app.models.document_models import Base 
 from app.database import engine
-from app.api.document import router as documentRouter
-from app.api.user import router as userRouter
-# from api.qa import qa_router as qaRouter 
+from backend.app.api.document_routes import router as documentRouter
+from backend.app.api.user_routes import router as userRouter
 
 app = FastAPI(title="Intelligent Document QA")
 @app.on_event("startup")
