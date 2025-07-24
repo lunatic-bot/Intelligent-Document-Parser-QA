@@ -5,15 +5,15 @@ from .normalizer import TextNormalizer
 
 # Test files directory
 test_files = {
-    "pdf": "tests/sample.pdf",
-    "docx": "tests/sample.docx",
-    "txt": "tests/sample.txt"
+    "pdf": r"C:\Users\atalb\Documents\Coding\FastAPI\IDP\backend\app\Data\100KB_PDF.pdf",
+    # "docx": "tests/sample.docx",
+    # "txt": "tests/sample.txt"
 }
 
 # Initialize parser with optional poppler/tesseract paths
 parser = DocumentParser(
-    poppler_path=r"C:\\Path\\To\\poppler\\bin",
-    tesseract_cmd=r"C:\\Program Files\\Tesseract-OCR\\tesseract.exe"
+    poppler_path=r"C:\Users\atalb\AppData\Local\poppler-24.08.0\Library\bin",
+    tesseract_cmd=r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 )
 
 # Process each file
