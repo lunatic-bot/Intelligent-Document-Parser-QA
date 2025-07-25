@@ -1,0 +1,3 @@
+# core/vectorizer/chunker.py
+def split_into_chunks(text: str, max_tokens=500, overlap=50) -> List[str]:
+    ...
